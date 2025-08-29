@@ -9,5 +9,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run a script
-        run: echo "Event type is: ${{ github.event.action }}"
+        run: 'echo "Event type is: ${{ github.event.action }}"'
 
