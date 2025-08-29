@@ -11,7 +11,7 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: nikhita-code/Github-Actions-Nikhita@v3
+        uses: nikhita-code/Github-Actions-Nikhita
 
       - name: Create Swift File
         run: |
