@@ -1,12 +1,13 @@
-name: "workflow contexts"
-
-on: ['push']
+on: [push]
 
 jobs:
   workflow-context:
-  runs-on: ubuntu-latest
-  steps:
+    runs-on: ubuntu-latest
+    steps:
       - name: "my step"
-        run: echo "Hello! $MY_ACTION "
+        run: |
+          echo "Hello! $MY_ACTION"
+          echo "Hii! $MY_ACTOR"
         env: 
-        MY_ACTION: ${{ github.action }}
+          MY_ACTION: ${{ github.action }}
+          MY_ACTOR: ${{ github.actor }}
