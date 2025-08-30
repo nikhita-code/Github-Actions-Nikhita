@@ -1,8 +1,7 @@
 name: Input action use
 
 on:
-  push:
-    branches: [ "main" ]   # runs on push to main branch
+ workflow_dispatch:
   inputs:
     name: 
       description: "Dummy_input"
