@@ -1,0 +1,21 @@
+name: Input action use
+
+on:
+  push:
+    branches: [ "main" ]   # runs on push to main branch
+  inputs:
+    name: 
+      description: "Dummy_input"
+      type: string
+      default: "Happy Birthday"
+jobs:
+  input-demo:
+    runs-on: ubuntu-latest
+    steps:
+       - name: "set-input"
+         run: echo ${{ inputs.name }}
+      
+         
+         
+         
+         
