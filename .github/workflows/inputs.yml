@@ -4,15 +4,24 @@ on:
  workflow_dispatch:
   inputs:
     name: 
-      description: "Dummy_input"
+      description: "Name"
       type: string
-      default: "Happy Birthday"
+      default: "Nikhita"
+
+    age: 
+      description: "Age"
+      type: number
+      required: true
+      
 jobs:
   input-demo:
     runs-on: ubuntu-latest
     steps:
-       - name: "set-input"
+       - name: "name-input"
          run: echo "${{ inputs.name }}"
+
+       - name: "age-input"
+         run: echo ${{ inputs.age }}
       
          
          
