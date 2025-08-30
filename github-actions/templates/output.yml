@@ -1,0 +1,20 @@
+name: Output action use
+
+on:
+  push:
+    branches: [ "main" ]   # runs on push to main branch
+
+jobs:
+  output-demo:
+    runs-on: ubuntu-latest
+    steps:
+       - name: "set-output"
+         id: use-output
+         run: echo "Name=Nikhita" >> $GITHUB_OUTPUT
+         
+       - name: "access output"
+         run: echo "Hello ${{ steps.use-output.Name }} !! How are you"
+         
+         
+         
+         
