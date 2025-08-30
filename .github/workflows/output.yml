@@ -10,10 +10,14 @@ jobs:
     steps:
        - name: "set-output"
          id: use-output
-         run: echo "Name=Nikhita" >> $GITHUB_OUTPUT
+         run: |
+            echo "name=Nikhita" >> $GITHUB_OUTPUT
+            echo "age=25" >> $GITHUB_OUTPUT
          
        - name: "access output"
-         run: echo "Hello ${{ steps.use-output.outputs.Name }} !! How are you"
+         run: |
+             echo "My name is  ${{ steps.use-output.outputs.name }} "
+             echo "My age is ${{ steps.use-output.outputs.age }} "
          
          
          
