@@ -12,6 +12,20 @@ on:
       description: "Age"
       type: number
       required: true
+
+    env: 
+      description: "Environment"
+      type: choice
+      required: true
+      options:
+        - dev
+        - stage
+        - production 
+        
+    married: 
+      description: "Is married"
+      type: booloean 
+ 
       
 jobs:
   input-demo:
@@ -22,6 +36,21 @@ jobs:
 
        - name: "age-input"
          run: echo ${{ inputs.age }}
+
+       - name: "env-input"
+         run: echo ${{ inputs.env }}
+
+       - name: "status-input"
+         run: echo ${{ inputs.married }}
+
+
+
+
+
+
+
+
+         
       
          
          
