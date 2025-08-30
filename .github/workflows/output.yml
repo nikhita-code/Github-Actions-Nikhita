@@ -13,7 +13,7 @@ jobs:
          run: echo "Name=Nikhita" >> $GITHUB_OUTPUT
          
        - name: "access output"
-         run: 'echo "Hello ${{ steps.use-output.Name }} !! How are you"'
+         run: echo "Hello ${{ steps.use-output.outputs.Name }} !! How are you"
          
          
          
