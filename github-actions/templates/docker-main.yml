@@ -12,7 +12,7 @@ jobs:
     env:
       AWS_REGION: eu-west-1
       ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}   # e.g. 123456789.dkr.ecr.eu-west-1.amazonaws.com
-      ECR_REPOSITORY: myapp-repo
+      ECR_REPOSITORY: app-repo
 
     steps:
       - name: Checkout code
@@ -25,9 +25,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
+     - name: Login to Amazon ECR
+        run: |
+          aws ecr get-login-password --region $AWS_REGION | \
+          docker login --username AWS --password-stdin $ECR_REGISTRY
 
       - name: Build docker image
         run: |
@@ -46,7 +47,7 @@ jobs:
     env:
       AWS_REGION: eu-west-1
       ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
-      ECR_REPOSITORY: myapp-repo
+      ECR_REPOSITORY: app-repo
 
     steps:
       - name: Deploy to EC2
