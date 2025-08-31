@@ -12,8 +12,14 @@ jobs:
     env:
       AWS_REGION: eu-west-1
       # Set these in GitHub Secrets
-      ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}   # e.g. 123456789012.dkr.ecr.eu-west-1.amazonaws.com
-      ECR_REPOSITORY: app-repo
+     # ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}   # e.g. 123456789012.dkr.ecr.eu-west-1.amazonaws.com
+     # ECR_REPOSITORY: app-repo
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+      ECR_REPOSITORY: ${{ secrets.REPOSITORY_NAME }}
+      IMAGE_TAG: latest
+      ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+      
 
     steps:
       - name: Checkout code
@@ -35,13 +41,13 @@ jobs:
       - name: Build docker image
         run: |
           echo "Building Docker image..."
-          docker build -t $ECR_REPOSITORY:latest .
-          docker tag $ECR_REPOSITORY:latest $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
+          docker tag $ECR_REPOSITORY:$IMAGE_TAG  $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
 
       - name: Push to ECR
         run: |
           echo "Pushing image to ECR..."
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
 
   deploy-ec2:
     name: AWS Deploy to EC2
@@ -75,7 +81,7 @@ jobs:
               docker login --username AWS --password-stdin $ECR_REGISTRY
 
             echo "Pulling latest image..."
-            docker pull $ECR_REGISTRY/$ECR_REPOSITORY:latest
+            docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
 
             echo "Stopping old container if running..."
             docker stop myapp || true
